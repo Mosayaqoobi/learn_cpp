@@ -1,0 +1,58 @@
+# Build outputs
+build/
+build-*/
+out/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.ninja
+.ninja_deps
+.ninja_log
+
+# Compiled / linked artifacts
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+
+# Debug symbols
+*.dSYM/
+*.pdb
+*.ilk
+*.exp
+
+# Dependency / package managers
+vcpkg_installed/
+conan/
+
+# IDE / editor
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+
+# Clang tooling
+.cache/
+compile_commands.json
+
+# Misc
+*.log
+/cmake-build-debug
+/book
+
