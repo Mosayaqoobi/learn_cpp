@@ -8,7 +8,8 @@
 #include <array>
 #include <stdexcept>
 
-template <std::size_t Capacity> class ByteRing {
+template <std::size_t Capacity>
+class ByteRing {
     static_assert(Capacity > 0, "ByteRing: Capacity must be greater than 0");
 
     std::array<std::uint8_t, Capacity> storage{};

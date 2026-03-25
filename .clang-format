@@ -13,6 +13,8 @@ BreakBeforeBraces: Attach
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: Never
 
+AlwaysBreakTemplateDeclarations: Yes
+
 MaxEmptyLinesToKeep: 2
 
 SeparateDefinitionBlocks: Always
