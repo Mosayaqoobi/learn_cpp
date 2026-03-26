@@ -19,8 +19,15 @@ MaxEmptyLinesToKeep: 2
 
 SeparateDefinitionBlocks: Always
 
-PointerAlignment: Right
 SortIncludes: true
 IncludeBlocks: Preserve
 
 InsertNewlineAtEOF: true
+
+PointerAlignment: Left
+DerivePointerAlignment: false
+ReferenceAlignment: Pointer
+
+SpaceBeforeCpp11BracedList: true
+Cpp11BracedListStyle: true
+

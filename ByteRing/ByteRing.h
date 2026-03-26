@@ -12,9 +12,9 @@ template <std::size_t Capacity>
 class ByteRing {
     static_assert(Capacity > 0, "ByteRing: Capacity must be greater than 0");
 
-    std::array<std::uint8_t, Capacity> storage{};
-    std::size_t head{};  // index of the oldest byte inserted
-    std::size_t count{}; // count of bytes currently within storage
+    std::array<std::uint8_t, Capacity> storage {};
+    std::size_t head {};  // index of the oldest byte inserted
+    std::size_t count {}; // count of bytes currently within storage
 
   public:
     ByteRing() = default;

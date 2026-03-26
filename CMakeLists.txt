@@ -11,4 +11,5 @@ add_executable(
         main.cpp
         LinkedList/linkedlist.h
         LinkedList/main.cpp
+        LinkedList/doublylinkedlist.h
 )
