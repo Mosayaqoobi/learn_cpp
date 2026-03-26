@@ -7,9 +7,13 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_executable(
         learn_cpp
-        ByteRing/ByteRing.h
+        data_structures/ByteRing/ByteRing.h
         main.cpp
-        LinkedList/linkedlist.h
-        LinkedList/main.cpp
-        LinkedList/doublylinkedlist.h
+        data_structures/LinkedList/linkedlist.h
+        data_structures/LinkedList/main.cpp
+        data_structures/LinkedList/doublylinkedlist.h
+        OOP/BankAccount/Money.h
+        OOP/BankAccount/Account.h
+        OOP/BankAccount/Ledger.h
+        OOP/BankAccount/Transaction.h
 )

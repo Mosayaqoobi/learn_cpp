@@ -2,8 +2,8 @@
 // Created by Mosa Yaqoobi on 2026-03-22.
 // test the ghetto linkedlist implementation
 
-#include <print>
 #include "linkedlist.h"
+#include <print>
 
 int main() {
     try {
