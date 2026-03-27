@@ -16,4 +16,6 @@ add_executable(
         OOP/BankAccount/Account.h
         OOP/BankAccount/Ledger.h
         OOP/BankAccount/Transaction.h
+        Random/test.cpp
+        data_structures/Stack/FixedStack.h
 )
