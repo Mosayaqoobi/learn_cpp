@@ -18,4 +18,7 @@ add_executable(
         OOP/BankAccount/Transaction.h
         Random/test.cpp
         data_structures/Stack/FixedStack.h
+        data_structures/Queue/Queue.h
+        temp.cpp
+        "leetcode solutions/easy/isMonotonic.cpp"
 )
