@@ -21,4 +21,6 @@ add_executable(
         data_structures/Queue/Queue.h
         temp.cpp
         "leetcode solutions/easy/isMonotonic.cpp"
+        "leetcode solutions/medium/addTwoNumbers.cpp"
+        "leetcode solutions/easy/addBinary.cpp"
 )

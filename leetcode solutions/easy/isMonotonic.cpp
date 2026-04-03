@@ -5,7 +5,8 @@
 #include <vector>
 
 bool isMonotonic(std::vector<int>& nums) {
-    if (nums.size() == 1) return true;
+    if (nums.size() == 1)
+        return true;
     bool is_inc = true;
     bool is_dec = true;
     for (auto i = 0; i < nums.size() - 1; i++) {

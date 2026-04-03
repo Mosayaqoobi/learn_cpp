@@ -5,8 +5,6 @@
 #ifndef LEARN_CPP_QUEUE_H
 #define LEARN_CPP_QUEUE_H
 
-class Queue {
+class Queue {};
 
-};
-
-#endif //LEARN_CPP_QUEUE_H
+#endif // LEARN_CPP_QUEUE_H
