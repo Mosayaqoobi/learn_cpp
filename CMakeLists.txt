@@ -23,7 +23,9 @@ add_executable(
         "leetcode solutions/easy/isMonotonic.cpp"
         "leetcode solutions/medium/addTwoNumbers.cpp"
         "leetcode solutions/easy/addBinary.cpp"
-        data_structures/BinarySearchTree/BST.h
+        data_structures/BinarySearchTree/RecurseBST/BST.h
         data_structures/BinarySearchTree/Node.h
-        data_structures/BinarySearchTree/BST.cpp
+        data_structures/BinarySearchTree/RecurseBST/BST.cpp
+        data_structures/BinarySearchTree/iterativeBST/BST.h
+        data_structures/BinarySearchTree/iterativeBST/BST.cpp
 )

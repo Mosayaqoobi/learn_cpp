@@ -2,22 +2,42 @@
 // Created by Mosa Yaqoobi on 2026-04-05.
 //
 
-#include "BST.h"
+#include "../BST.h"
 
 #include <iostream>
 #include <optional>
+#include <queue>
 
-std::optional<int> BST::findMinFromSubtree(const Node *node) const noexcept {
-    if (!node) {    //if no root, just return a null pointer
+void levelOrder_(const Node* node) noexcept {
+    if (!node) {
+        return;
+    }
+    std::queue<const Node*> q;
+    q.push(node);
+    while (!q.empty()) {
+        std::cout << q.front()->key << " ";
+        auto temp = q.front();
+        q.pop();
+        if (temp->left) {
+            q.push(temp->left);
+        }
+        if (temp->right) {
+            q.push(temp->right);
+        }
+    }
+}
+
+std::optional<int> BST::findMinFromSubtree(const Node* node) const noexcept {
+    if (!node) { // if no root, just return a null pointer
         return std::nullopt;
     }
-    while (node->left) {    // recurse to the far left leaf, which is where the min is
+    while (node->left) { // recurse to the far left leaf, which is where the min is
         node = node->left;
     }
     return node->key;
 }
 
-std::optional<int> BST::findMaxFromSubtree(const Node *node) const noexcept {
+std::optional<int> BST::findMaxFromSubtree(const Node* node) const noexcept {
     if (!node) {
         return std::nullopt;
     }
@@ -33,8 +53,7 @@ Node* BST::remove_(Node* node, const int key) noexcept {
     }
     if (node->key > key) {
         node->left = remove_(node->left, key);
-    }
-    else if (node->key < key) {
+    } else if (node->key < key) {
         node->right = remove_(node->right, key);
     }
     if (node->key == key) {
@@ -63,16 +82,16 @@ Node* BST::remove_(Node* node, const int key) noexcept {
 }
 
 Node* BST::insert_(Node* node, const int key) {
-    if (!node) {    //base case (if no node, then make a new node, and return that)
+    if (!node) { // base case (if no node, then make a new node, and return that)
         Node* newNode = new Node(key);
         return newNode;
     }
-    if (node->key > key) {  // node exists, just recurse down the correct path
+    if (node->key > key) { // node exists, just recurse down the correct path
         node->left = insert_(node->left, key);
     } else if (node->key < key) {
-        node->right =  insert_(node->right, key);
+        node->right = insert_(node->right, key);
     }
-    return node;    //return the node if it gets placed
+    return node; // return the node if it gets placed
 }
 
 Node* BST::search_(Node* node, const int key) const noexcept {
@@ -86,9 +105,10 @@ Node* BST::search_(Node* node, const int key) const noexcept {
     } else if (node->key < key) {
         return search_(node->right, key);
     }
+    return node;
 }
 
-int BST::height_(const Node *node) const noexcept {
+int BST::height_(const Node* node) const noexcept {
     if (!node) {
         return 0;
     }
@@ -104,7 +124,7 @@ void BST::preOrder_(const Node* node) const noexcept {
     preOrder_(node->right);
 }
 
-void BST::inOrder_(const Node *node) const noexcept {
+void BST::inOrder_(const Node* node) const noexcept {
     if (!node) {
         return;
     }
@@ -113,7 +133,7 @@ void BST::inOrder_(const Node *node) const noexcept {
     inOrder_(node->right);
 }
 
-void BST::postOrder_(const Node *node) const noexcept {
+void BST::postOrder_(const Node* node) const noexcept {
     if (!node) {
         return;
     }
@@ -133,19 +153,16 @@ bool BST::isEmpty() const noexcept {
     return true;
 }
 
-std::optional<int> BST::search(const int val) const noexcept {
-    if (isEmpty()) {
-        return std::nullopt;
-    }
-
+bool BST::search(const int val) const noexcept {
+    return (search_(getRoot(), val) != nullptr);
 }
 
 void BST::insert(const int val) {
-     root = insert_(root, val);
+    root = insert_(root, val);
 }
 
 void BST::remove(const int key) {
-
+    remove_(getRoot(), key);
 }
 
 std::optional<int> BST::findMin() const noexcept {
@@ -171,4 +188,3 @@ void BST::postOrder() const noexcept {
 int BST::height() const noexcept {
     return height_(getRoot());
 }
-
