@@ -10,33 +10,38 @@
 
 class BST {
     Node* root {nullptr};
-    Node* insert_(Node* node, const int key);
-    Node* search_(Node* node, const int key) const noexcept;
-    Node* remove_(Node* node, const int key) noexcept;
 
-    void preOrder_(const Node* node) const noexcept;
-    void inOrder_(const Node* node) const noexcept;
-    void postOrder_(const Node* node) const noexcept;
-    void levelOrder_(const Node* node) const noexcept;
-    int height_(const Node* node) const noexcept;
-    std::optional<int> findMinFromSubtree(const Node* node) const noexcept;
-    std::optional<int> findMaxFromSubtree(const Node* node) const noexcept;
+    static Node* insert_(Node* node, int key);
+
+    static Node* search_(Node* node, int key) noexcept;
+
+    static Node* remove_(Node* node, int key) noexcept;
+
+    static void preOrder_(const Node* node) noexcept;
+
+    static void inOrder_(const Node* node) noexcept;
+
+    static void postOrder_(const Node* node) noexcept;
+
+    static int height_(const Node* node) noexcept;
+    static std::optional<int> findMinFromSubtree(const Node* node) noexcept;
+    static std::optional<int> findMaxFromSubtree(const Node* node) noexcept;
 
   public:
     BST() = default;
 
-    BST(Node* root_node) : root(root_node) {}
+    explicit BST(Node* root_node) : root(root_node) {}
 
-    void insert(const int val);
+    void insert(int val);
 
-    [[nodiscard]] bool search(const int val) const noexcept;
-    void remove(const int key);
+    [[nodiscard]] bool search(int val) const noexcept;
+    void remove(int key) const;
     void inOrder() const noexcept;
     void preOrder() const noexcept;
     void postOrder() const noexcept;
     void levelOrder() const noexcept;
-    std::optional<int> findMin() const noexcept;
-    std::optional<int> findMax() const noexcept;
+    [[nodiscard]] std::optional<int> findMin() const noexcept;
+    [[nodiscard]] std::optional<int> findMax() const noexcept;
     int height() const noexcept;
     bool isEmpty() const noexcept;
     Node* getRoot() const noexcept;

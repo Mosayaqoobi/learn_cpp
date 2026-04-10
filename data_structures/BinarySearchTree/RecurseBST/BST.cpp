@@ -2,7 +2,7 @@
 // Created by Mosa Yaqoobi on 2026-04-05.
 //
 
-#include "../BST.h"
+#include "BST.h"
 
 #include <iostream>
 #include <optional>
@@ -27,7 +27,7 @@ void levelOrder_(const Node* node) noexcept {
     }
 }
 
-std::optional<int> BST::findMinFromSubtree(const Node* node) const noexcept {
+std::optional<int> BST::findMinFromSubtree(const Node* node) noexcept {
     if (!node) { // if no root, just return a null pointer
         return std::nullopt;
     }
@@ -37,7 +37,7 @@ std::optional<int> BST::findMinFromSubtree(const Node* node) const noexcept {
     return node->key;
 }
 
-std::optional<int> BST::findMaxFromSubtree(const Node* node) const noexcept {
+std::optional<int> BST::findMaxFromSubtree(const Node* node) noexcept {
     if (!node) {
         return std::nullopt;
     }
@@ -47,7 +47,7 @@ std::optional<int> BST::findMaxFromSubtree(const Node* node) const noexcept {
     return node->key;
 }
 
-Node* BST::remove_(Node* node, const int key) noexcept {
+Node* BST::remove_(Node* node, int key) noexcept {
     if (!node) {
         return nullptr;
     }
@@ -81,7 +81,7 @@ Node* BST::remove_(Node* node, const int key) noexcept {
     return node;
 }
 
-Node* BST::insert_(Node* node, const int key) {
+Node* BST::insert_(Node* node, int key) {
     if (!node) { // base case (if no node, then make a new node, and return that)
         Node* newNode = new Node(key);
         return newNode;
@@ -94,7 +94,7 @@ Node* BST::insert_(Node* node, const int key) {
     return node; // return the node if it gets placed
 }
 
-Node* BST::search_(Node* node, const int key) const noexcept {
+Node* BST::search_(Node* node, int key) noexcept {
     if (!node) {
         return nullptr;
     }
@@ -108,14 +108,14 @@ Node* BST::search_(Node* node, const int key) const noexcept {
     return node;
 }
 
-int BST::height_(const Node* node) const noexcept {
+int BST::height_(const Node* node) noexcept {
     if (!node) {
         return 0;
     }
     return std::max(height_(node->left), height_(node->right)) + 1;
 }
 
-void BST::preOrder_(const Node* node) const noexcept {
+void BST::preOrder_(const Node* node) noexcept {
     if (!node) {
         return;
     }
@@ -124,7 +124,7 @@ void BST::preOrder_(const Node* node) const noexcept {
     preOrder_(node->right);
 }
 
-void BST::inOrder_(const Node* node) const noexcept {
+void BST::inOrder_(const Node* node) noexcept {
     if (!node) {
         return;
     }
@@ -133,7 +133,7 @@ void BST::inOrder_(const Node* node) const noexcept {
     inOrder_(node->right);
 }
 
-void BST::postOrder_(const Node* node) const noexcept {
+void BST::postOrder_(const Node* node) noexcept {
     if (!node) {
         return;
     }
@@ -153,15 +153,15 @@ bool BST::isEmpty() const noexcept {
     return true;
 }
 
-bool BST::search(const int val) const noexcept {
+bool BST::search(int val) const noexcept {
     return (search_(getRoot(), val) != nullptr);
 }
 
-void BST::insert(const int val) {
+void BST::insert(int val) {
     root = insert_(root, val);
 }
 
-void BST::remove(const int key) {
+void BST::remove(int key) const {
     remove_(getRoot(), key);
 }
 

@@ -28,4 +28,5 @@ add_executable(
         data_structures/BinarySearchTree/RecurseBST/BST.cpp
         data_structures/BinarySearchTree/iterativeBST/BST.h
         data_structures/BinarySearchTree/iterativeBST/BST.cpp
+        data_structures/AVL_Tree/Node.h
 )
