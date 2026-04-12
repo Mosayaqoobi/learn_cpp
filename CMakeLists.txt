@@ -16,17 +16,21 @@ add_executable(
         OOP/BankAccount/Account.h
         OOP/BankAccount/Ledger.h
         OOP/BankAccount/Transaction.h
-        Random/test.cpp
         data_structures/Stack/FixedStack.h
         data_structures/Queue/Queue.h
-        temp.cpp
         "leetcode solutions/easy/isMonotonic.cpp"
         "leetcode solutions/medium/addTwoNumbers.cpp"
         "leetcode solutions/easy/addBinary.cpp"
-        data_structures/BinarySearchTree/RecurseBST/BST.h
-        data_structures/BinarySearchTree/Node.h
-        data_structures/BinarySearchTree/RecurseBST/BST.cpp
-        data_structures/BinarySearchTree/iterativeBST/BST.h
-        data_structures/BinarySearchTree/iterativeBST/BST.cpp
-        data_structures/AVL_Tree/Node.h
+        data_structures/Trees/BinarySearchTree/RecurseBST/BST.h
+        data_structures/Trees/BinarySearchTree/Node.h
+        data_structures/Trees/BinarySearchTree/RecurseBST/BST.cpp
+        data_structures/Trees/BinarySearchTree/iterativeBST/BST.h
+        data_structures/Trees/BinarySearchTree/iterativeBST/BST.cpp
+        data_structures/Trees/AVL_Tree/Node.h
+        data_structures/Trees/AVL_Tree/AVL_Tree.h
+        data_structures/Trees/AVL_Tree/AVL_Tree.cpp
+        data_structures/Graph/Graph.h
+        data_structures/Graph/Graph.cpp
+        random/vectors.cpp
+        "leetcode solutions/easy/mergeAlternately.cpp"
 )

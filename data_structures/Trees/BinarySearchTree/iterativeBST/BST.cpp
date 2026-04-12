@@ -2,6 +2,7 @@
 // Created by Mosa Yaqoobi on 2026-04-05.
 //
 #include "BST.h"
+#include <algorithm>
 
 Node* BST::getRoot() const noexcept {
     return root;
@@ -69,5 +70,18 @@ std::optional<int> BST::findMax() const noexcept {
 }
 std::optional<int> BST::findMin() const noexcept {
     return findMinFromSubtree(root);
+}
+
+bool BST::isEmpty() const noexcept {
+    return root == nullptr;
+}
+
+static int heightHelper(const Node* node) noexcept {
+    if (!node) return 0;
+    return std::max(heightHelper(node->left), heightHelper(node->right)) + 1;
+}
+
+int BST::height() const noexcept {
+    return heightHelper(root);
 }
 
