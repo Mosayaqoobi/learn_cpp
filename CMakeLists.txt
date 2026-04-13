@@ -33,4 +33,11 @@ add_executable(
         data_structures/Graph/Graph.cpp
         random/vectors.cpp
         "leetcode solutions/easy/mergeAlternately.cpp"
+        "leetcode solutions/easy/kidsWithCandies.cpp"
+        "leetcode solutions/easy/gcdOfStrings.cpp"
+        "leetcode solutions/easy/canPlaceFlowers.cpp"
+        "leetcode solutions/easy/reverseVowels.cpp"
+        "leetcode solutions/medium/reverseWords.cpp"
+        "leetcode solutions/medium/productExceptSelf.cpp"
+        "leetcode solutions/medium/increasingTriplet.cpp"
 )
