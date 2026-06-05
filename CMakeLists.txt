@@ -1,16 +1,19 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.30)
 
-project(learn_cpp LANGUAGES CXX)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
+# 2. Set the standard BEFORE the project call so the compiler is probed correctly
 set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
+
+# 3. Now initialize the project
+project(learn_cpp LANGUAGES CXX)
+
 
 add_executable(
         learn_cpp
         data_structures/ByteRing/ByteRing.h
         main.cpp
         data_structures/LinkedList/linkedlist.h
-        data_structures/LinkedList/main.cpp
         data_structures/LinkedList/doublylinkedlist.h
         OOP/BankAccount/Money.h
         OOP/BankAccount/Account.h
@@ -31,7 +34,6 @@ add_executable(
         data_structures/Trees/AVL_Tree/AVL_Tree.cpp
         data_structures/Graph/Graph.h
         data_structures/Graph/Graph.cpp
-        random/vectors.cpp
         "leetcode solutions/easy/mergeAlternately.cpp"
         "leetcode solutions/easy/kidsWithCandies.cpp"
         "leetcode solutions/easy/gcdOfStrings.cpp"
@@ -40,4 +42,8 @@ add_executable(
         "leetcode solutions/medium/reverseWords.cpp"
         "leetcode solutions/medium/productExceptSelf.cpp"
         "leetcode solutions/medium/increasingTriplet.cpp"
+        "leetcode solutions/easy/moveZeroes.cpp"
+        "leetcode solutions/medium/compress.cpp"
+        "leetcode solutions/easy/guessNumber.cpp"
+        "leetcode solutions/easy/findMaxAverage.cpp"
 )
