@@ -2,9 +2,9 @@
 // Created by Mosa Yaqoobi on 2026-04-11.
 //
 #include <iostream>
-#include <vector>
-#include <string>
 #include <stack>
+#include <string>
+#include <vector>
 
 std::string reverseWords(std::string s) {
     std::stack<std::string> st;
@@ -14,8 +14,7 @@ std::string reverseWords(std::string s) {
         if (s[p] == ' ' && word.size() != 0) {
             st.push(word);
             word.clear();
-        }
-        else if (s[p] != ' ') {
+        } else if (s[p] != ' ') {
             word.push_back(s[p]);
         }
         p++;

@@ -7,17 +7,18 @@
 #include <algorithm>
 #include <ios>
 
-int AVLTree::getHeight(const Node *node) noexcept {
+int AVLTree::getHeight(const Node* node) noexcept {
     return node ? node->height : 0;
 }
 
-int AVLTree::getBalanceFactor(Node *node) noexcept {
+int AVLTree::getBalanceFactor(Node* node) noexcept {
     if (!node) {
         return 0;
     }
     return getHeight(node->left) - getHeight(node->right);
 }
-Node *AVLTree::findMinNode(Node *node) noexcept {
+
+Node* AVLTree::findMinNode(Node* node) noexcept {
     if (!node) {
         return nullptr;
     }
@@ -27,11 +28,11 @@ Node *AVLTree::findMinNode(Node *node) noexcept {
     return node;
 }
 
-void AVLTree::updateHeight(Node *node) noexcept {
+void AVLTree::updateHeight(Node* node) noexcept {
     node->height = std::max(getHeight(node->left), getHeight(node->right)) + 1;
 }
 
-Node *AVLTree::rightRotate(Node *node) noexcept {
+Node* AVLTree::rightRotate(Node* node) noexcept {
     Node* x = node->left;
     node->left = x->right;
     x->right = node;
@@ -40,7 +41,7 @@ Node *AVLTree::rightRotate(Node *node) noexcept {
     return x;
 }
 
-Node *AVLTree::leftRotate(Node *node) noexcept {
+Node* AVLTree::leftRotate(Node* node) noexcept {
     Node* x = node->right;
     node->right = x->left;
     x->left = node;
@@ -49,7 +50,7 @@ Node *AVLTree::leftRotate(Node *node) noexcept {
     return x;
 }
 
-Node *AVLTree::balance(Node *node) noexcept {
+Node* AVLTree::balance(Node* node) noexcept {
     if (getBalanceFactor(node) > 1) {
         if (getBalanceFactor(node->left) >= 0) {
             return rightRotate(node);
@@ -69,7 +70,7 @@ Node *AVLTree::balance(Node *node) noexcept {
     }
 }
 
-Node *AVLTree::insert_(Node *node, int val) noexcept {
+Node* AVLTree::insert_(Node* node, int val) noexcept {
     if (!node) {
         Node* newNode = new Node(val);
         return newNode;
@@ -91,8 +92,7 @@ Node* AVLTree::remove_(Node* node, const int val) noexcept {
         node->left = remove_(node->left, val);
     } else if (node->key < val) {
         node->right = remove_(node->right, val);
-    }
-    else if (node->key == val) {
+    } else if (node->key == val) {
         Node* temp {};
         if (!node->left && !node->right) {
             delete node;
@@ -117,7 +117,7 @@ Node* AVLTree::remove_(Node* node, const int val) noexcept {
     return balance(node);
 }
 
-Node *AVLTree::search_(Node *node, int val) noexcept {
+Node* AVLTree::search_(Node* node, int val) noexcept {
     if (!node) {
         return nullptr;
     }
@@ -163,7 +163,6 @@ int AVLTree::findMax() const noexcept {
         node = node->right;
     }
     return node->key;
-
 }
 
 int AVLTree::height() const noexcept {
@@ -174,7 +173,6 @@ bool AVLTree::isEmpty() const noexcept {
     return getRoot() == nullptr;
 }
 
-Node *AVLTree::getRoot() const noexcept {
+Node* AVLTree::getRoot() const noexcept {
     return root;
 }
-

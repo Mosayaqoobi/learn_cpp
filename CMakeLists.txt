@@ -46,4 +46,13 @@ add_executable(
         "leetcode solutions/medium/compress.cpp"
         "leetcode solutions/easy/guessNumber.cpp"
         "leetcode solutions/easy/findMaxAverage.cpp"
+        data_structures/Trees/Heaps/min_heap/min_heap.h
+        data_structures/Trees/Heaps/max_heap/max_heap.h
+        data_structures/Trees/Heaps/min_heap/min_heap.cpp
+        chat_app/src/Server.cpp
+        chat_app/src/Client.cpp
+        chat_app/apps/chat_server.cpp
+        chat_app/apps/chat_client.cpp
+        chat_app/src/Server.h
+        chat_app/src/Client.h
 )

@@ -56,6 +56,7 @@ std::optional<int> BST::findMinFromSubtree(const Node* node) noexcept {
     }
     return node->key;
 }
+
 std::optional<int> BST::findMaxFromSubtree(const Node* node) noexcept {
     if (!node) {
         return std::nullopt;
@@ -65,9 +66,11 @@ std::optional<int> BST::findMaxFromSubtree(const Node* node) noexcept {
     }
     return node->key;
 }
+
 std::optional<int> BST::findMax() const noexcept {
     return findMaxFromSubtree(root);
 }
+
 std::optional<int> BST::findMin() const noexcept {
     return findMinFromSubtree(root);
 }
@@ -77,11 +80,11 @@ bool BST::isEmpty() const noexcept {
 }
 
 static int heightHelper(const Node* node) noexcept {
-    if (!node) return 0;
+    if (!node)
+        return 0;
     return std::max(heightHelper(node->left), heightHelper(node->right)) + 1;
 }
 
 int BST::height() const noexcept {
     return heightHelper(root);
 }
-

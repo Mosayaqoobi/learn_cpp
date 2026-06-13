@@ -5,7 +5,7 @@
 #include <ostream>
 #include <string>
 
-std::string mergeAlternately(const std::string &word1, const std::string &word2) {
+std::string mergeAlternately(const std::string& word1, const std::string& word2) {
     int p1 = 0;
     int p2 = 0;
     std::string result {};
@@ -20,7 +20,6 @@ std::string mergeAlternately(const std::string &word1, const std::string &word2)
     result.append(word1, p1, word1.size() - p1);
     return result;
 }
-
 
 int main() {
     std::string word1 = "abcd";
