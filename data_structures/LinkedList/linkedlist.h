@@ -8,6 +8,7 @@
 #include <print>
 #include <stdexcept>
 #include <unordered_set>
+#include <memory>
 
 template <typename T>
 class LinkedList {
@@ -16,14 +17,14 @@ class LinkedList {
 
       public:
         T data;
-        Node* next;
+        std::unique_ptr<Node> next;
+
         Node() : data {}, next {nullptr} {}
-        Node(const T& value, Node* next_d) : data {value}, next {next_d} {}
+        Node(const T& value, std::unique_ptr<Node> next_d) : data {value}, next {std::move(next_d)} {}
         explicit Node(const T& value) : data {value}, next {nullptr} {}
     };
 
-    Node* head {nullptr};
-    Node* tail {nullptr};
+    std::unique_ptr<Node> head {nullptr};
     std::size_t size_ {};
 
   public:
@@ -33,18 +34,15 @@ class LinkedList {
         clear();
     }
     
-    LinkedList(LinkedList&& other) noexcept : head(other.head), tail(other.tail), size_(other.size_) {
+    LinkedList(LinkedList&& other) noexcept : head(std::move(other.head)), size_(other.size_) {
         other.head = nullptr;
-        other.tail = nullptr;
         other.size_ = 0;
     }
     LinkedList& operator=(LinkedList&& other) noexcept {
         if (this != &other) {
             clear();
-            head = other.head;
-            tail = other.tail;
+            head = std::move(other.head);
             size_ = other.size_;
-            other.head = other.tail = nullptr;
             other.size_ = 0;
         }
         return *this;
@@ -64,18 +62,15 @@ class LinkedList {
         return head->data;
     }
 
-    T& back() {
-        if (empty()) {
-            throw std::logic_error("list is empty \n");
-        }
-        return tail->data;
-    }
-
     const T& back() const {
         if (empty()) {
             throw std::logic_error("list is empty\n");
         }
-        return tail->data;
+        Node* node {head.get()};
+        while (node->next != nullptr) {
+            node = node->next.get();
+        }
+        return node->data;
     }
 
     [[nodiscard]] bool empty() const noexcept {
@@ -87,22 +82,22 @@ class LinkedList {
     }
 
     void push_front(const T& data) {
-        Node* node = new Node {data};
-        node->next = head;
-        head = node;
-        if (empty()) {
-            tail = node;
-        }
+        auto node = std::make_unique<Node>(data);
+        node->next = std::move(head);
+        head = std::move(node);
         size_++;
     }
     void push_back(const T& data) {
-        Node* node = new Node(data, nullptr);
+        auto node = std::make_unique<Node>(data, nullptr);
 
         if (empty()) {
-            head = tail = node;
+            head = std::move(node);
         } else {
-            tail->next = node;
-            tail = node;
+            Node* temp {head.get()};
+            while (temp->next.get() != nullptr) {
+                temp = temp->next.get();
+            }
+            temp->next = std::move(node);
         }
         size_++;
     }
@@ -111,41 +106,33 @@ class LinkedList {
         if (empty()) {
             throw std::logic_error("Linked list is empty \n");
         }
-        Node* node {head};
-        head = node->next;
-        delete node;
+        head = std::move(head->next);
         size_--;
     }
 
     void pop_back() {
         if (empty()) {
             throw std::logic_error("Linked list is empty\n");
-        }
-        Node* node {head};
-        if (tail == head) {
-            delete head;
+        } else if (head->next == nullptr) {
             head = nullptr;
-            tail = nullptr;
+            size_ = 0;
+        } else {
+            Node* node {head.get()};
+            Node* prev {nullptr};
+            while (node->next != nullptr) {
+                prev = node;
+                node = node->next.get();
+            }
+            prev->next.reset();
             size_--;
-            return;
         }
-        while (node->next != tail) {
-            node = node->next;
-        }
-        delete tail;
-        node->next = nullptr;
-        tail = node;
-        size_--;
     }
 
     void clear() noexcept {
 
         while (head) {
-            Node* node {head->next};
-            delete head;
-            head = node;
+            head = std::move(head->next);
         }
-        tail = nullptr;
         size_ = 0;
     }
 
@@ -154,7 +141,7 @@ class LinkedList {
             std::print("[] \n");
         } else {
 
-            const Node* temp {head};
+            const Node* temp {head.get()};
             std::print("[ ");
             while (temp) {
                 if (temp->next) {
@@ -162,31 +149,29 @@ class LinkedList {
                 } else {
                     std::print("{}", temp->data);
                 }
-                temp = temp->next;
+                temp = temp->next.get();
             }
             std::print(" ] \n");
         }
     }
-    void removeDuplicates() noexcept {
+    void removeDuplicates() {
         std::unordered_set<T> seen; //keep track of the seen elements so far
-        Node* node {head};
+        Node* node {head.get()};
         Node* prev = nullptr;
         while (node) {
             if (seen.contains(node->data)) {
-                prev->next = node->next;
-                delete node;
-                node = prev->next;
+                prev->next = std::move(node->next);
+                node = prev->next.get();
                 size_--;
             } else {
                 seen.insert(node->data);
                 prev = node;
-                node = node->next;
+                node = node->next.get();
             }
         }
-        tail = prev;
     }
     [[nodiscard]] bool search(const T& value) const noexcept {
-        for (Node* node {head}; node; node = node->next) {
+        for (Node* node {head.get()}; node; node = node->next.get()) {
             if (node->data == value) {
                 return true;
             }
