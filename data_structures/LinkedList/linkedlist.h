@@ -2,39 +2,56 @@
 // Created by Mosa Yaqoobi on 2026-03-22.
 //
 
-#ifndef LEARN_CPP_LINKEDLIST_H
-#define LEARN_CPP_LINKEDLIST_H
+#pragma once
 
 #include <cstddef>
 #include <print>
 #include <stdexcept>
+#include <unordered_set>
 
 template <typename T>
 class LinkedList {
 
     class Node {
-        T data;
-        Node* next;
 
       public:
-        Node(T value) : data {value}, next {nullptr} {}
+        T data;
+        Node* next;
+        Node() : data {}, next {nullptr} {}
+        Node(const T& value, Node* next_d) : data {value}, next {next_d} {}
+        explicit Node(const T& value) : data {value}, next {nullptr} {}
     };
 
     Node* head {nullptr};
+    Node* tail {nullptr};
     std::size_t size_ {};
 
   public:
     LinkedList() = default;
 
-    ~LinkedList() = default;
-
-    LinkedList(LinkedList&& other) noexcept : head(other.head), size_(other.size_) {
+    ~LinkedList() {
+        clear();
+    }
+    
+    LinkedList(LinkedList&& other) noexcept : head(other.head), tail(other.tail), size_(other.size_) {
         other.head = nullptr;
+        other.tail = nullptr;
         other.size_ = 0;
+    }
+    LinkedList& operator=(LinkedList&& other) noexcept {
+        if (this != &other) {
+            clear();
+            head = other.head;
+            tail = other.tail;
+            size_ = other.size_;
+            other.head = other.tail = nullptr;
+            other.size_ = 0;
+        }
+        return *this;
     }
 
     T& front() {
-        if (size_ == 0) {
+        if (empty()) {
             throw std::logic_error("Nothing in the front \n");
         }
         return head->data;
@@ -47,50 +64,92 @@ class LinkedList {
         return head->data;
     }
 
-    bool empty() const noexcept {
+    T& back() {
+        if (empty()) {
+            throw std::logic_error("list is empty \n");
+        }
+        return tail->data;
+    }
+
+    const T& back() const {
+        if (empty()) {
+            throw std::logic_error("list is empty\n");
+        }
+        return tail->data;
+    }
+
+    [[nodiscard]] bool empty() const noexcept {
         return size_ == 0;
     }
 
-    std::size_t size() const noexcept {
+    [[nodiscard]] std::size_t size() const noexcept {
         return size_;
     }
 
     void push_front(const T& data) {
-        Node* node {data};
+        Node* node = new Node {data};
         node->next = head;
         head = node;
+        if (empty()) {
+            tail = node;
+        }
+        size_++;
+    }
+    void push_back(const T& data) {
+        Node* node = new Node(data, nullptr);
+
+        if (empty()) {
+            head = tail = node;
+        } else {
+            tail->next = node;
+            tail = node;
+        }
         size_++;
     }
 
     void pop_front() {
         if (empty()) {
-            throw std::logic_error("Nothing in the front \n");
+            throw std::logic_error("Linked list is empty \n");
         }
         Node* node {head};
         head = node->next;
-        node->next = nullptr;
         delete node;
         size_--;
     }
 
-    void clear() noexcept {
-        while (head) {
-            pop_front();
-        }
-    }
-
-    T& back() {
+    void pop_back() {
         if (empty()) {
-            throw std::logic_error("list is empty \n");
+            throw std::logic_error("Linked list is empty\n");
         }
-        Node* temp {head};
-        while (temp->next) {
-            temp = temp->next;
+        Node* node {head};
+        if (tail == head) {
+            delete head;
+            head = nullptr;
+            tail = nullptr;
+            size_--;
+            return;
         }
-        return temp->data;
+        while (node->next != tail) {
+            node = node->next;
+        }
+        delete tail;
+        node->next = nullptr;
+        tail = node;
+        size_--;
     }
 
-    void print() const noexcept {
+    void clear() noexcept {
+
+        while (head) {
+            Node* node {head->next};
+            delete head;
+            head = node;
+        }
+        tail = nullptr;
+        size_ = 0;
+    }
+
+    void print_ll() const noexcept {
         if (empty()) {
             std::print("[] \n");
         } else {
@@ -108,6 +167,33 @@ class LinkedList {
             std::print(" ] \n");
         }
     }
+    void removeDuplicates() noexcept {
+        std::unordered_set<T> seen; //keep track of the seen elements so far
+        Node* node {head};
+        Node* prev = nullptr;
+        while (node) {
+            if (seen.contains(node->data)) {
+                prev->next = node->next;
+                delete node;
+                node = prev->next;
+                size_--;
+            } else {
+                seen.insert(node->data);
+                prev = node;
+                node = node->next;
+            }
+        }
+        tail = prev;
+    }
+    [[nodiscard]] bool search(const T& value) const noexcept {
+        for (Node* node {head}; node; node = node->next) {
+            if (node->data == value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 };
 
-#endif
